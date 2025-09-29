@@ -1,0 +1,109 @@
+
+.tabl {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+.tabl th, .tabl td {
+	border: 1px solid #ccc;
+	padding: 10px;
+	text-align: center;
+}
+
+.fila_tabla2 {
+	background-color: #007bff;
+	color: white;
+	font-weight: bold;
+}
+
+.fila_tabla:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.btn {
+	padding: 6px 12px;
+	text-decoration: none;
+	border-radius: 4px;
+}
+
+.btn-primary {
+	background-color: #007bff;
+	color: white;
+}
+
+.btn-danger {
+	background-color: #dc3545;
+	color: white;
+}
+
+.btn-outline-primary {
+	border: 1px solid #007bff;
+	color: #007bff;
+	background-color: transparent;
+}
+
+.usuario a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF; /* Azul institucional */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.usuario a:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+}
+nav ul {
+    list-style-type: none;
+    padding-left: 0; 
+}
+.form-container {
+  max-width: 400px;
+  margin: 40px auto; /* Centrado horizontal */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+/* Asegura que los campos estén alineados y espaciados */
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.form-control {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #eef6ff;         /* Fondo suave celeste */
+  border: 1px solid #0078D7;         /* Borde azul institucional */
+  border-radius: 8px;                /* Bordes redondeados */
+  padding: 10px 14px;                /* Espaciado interno cómodo */
+  font-size: 16px;                   /* Tamaño de texto legible */
+  color: #333;                       /* Texto oscuro */
+  transition: box-shadow 0.3s ease; /* Animación al enfocar */
+}
+
+.form-control:focus {
+  box-shadow: 0 0 5px rgba(0,120,215,0.5); /* Resplandor azul al enfocar */
+  outline: none;
+}
+.form-group {
+  margin-bottom: 20px; /* Espacio entre cada campo */
+  display: flex;
+  flex-direction: column; /* Asegura que label esté arriba del input */
+  align-items: flex-start; /* Alinea todo a la izquierda */
+}
+
+.form-control {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  box-sizing: border-box; /* Evita que el padding rompa el ancho */
+}
