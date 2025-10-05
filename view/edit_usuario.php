@@ -25,7 +25,7 @@ if (isset($dataToView["data"]["rol"])) $rol = $dataToView["data"]["rol"];
 	?>
 	
 	<form class="form" action="index.php?controller=usuario&action=save" method="POST">
-		<input type="hidden" name="id_usuario" value="<?php echo $id ?? ''; ?>" />
+		<input type="hidden" name="id_usuario" value="<?php echo $id_usuario ?? ''; ?>" />
 	<div class="form-container">
   
 		<div class="form-group">
@@ -40,7 +40,7 @@ if (isset($dataToView["data"]["rol"])) $rol = $dataToView["data"]["rol"];
 
 		<div class="form-group">
 			<label>DNI</label>
-			<input class="form-control" type="text" name="dni" value="<?php echo $dni; ?>" />
+			<input class="form-control" type="number" name="dni" value="<?php echo $dni; ?>" />
 		</div>
 
 		<div class="form-group">
@@ -50,7 +50,7 @@ if (isset($dataToView["data"]["rol"])) $rol = $dataToView["data"]["rol"];
 
 		<div class="form-group">
 			<label>Clave</label>
-			<input class="form-control" type="text" name="clave" value="<?php echo $clave; ?>" />
+			<input class="form-control" type="password" name="clave" value="<?php echo $clave; ?>" />
 		</div>
 
 		<div class="form-group">

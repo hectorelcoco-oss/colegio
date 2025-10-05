@@ -1,15 +1,34 @@
-<?php 
+<?php
 
-require_once 'config/config.php';
-require_once 'db.php';
+require_once "./config/config.php";
 
 class Usuario {
 
-	private $table = 'usuario';
+	private $tabla = 'usuario';
 	private $conection;
+	private $campos;
 
 	public function __construct() {
-		
+		$this->campos= [
+			"id_usuario" => "ID",
+			"apellido" => "Apellido",
+			"nombre" => "Nombre",
+			"dni" => "DNI",
+			"usuario" => "Usuario",
+			"clave" => "Contraseña",
+			"rol" => "Rol"
+		];
+		/** 
+			"id_usuario" => "ID",
+			"apellido" => "Apellido",
+			"nombre"=>"Nombre",
+			"dni" => "DNI",
+			"usuario" => "Usuario",
+			"clave" => "Contraseña",
+			"fecha_nac" => "Fecha Nac.",
+			"sexo" => "Sexo",
+			"email" => "Email"
+		 */
 	}
 
 	/* Set conection */
@@ -18,10 +37,10 @@ class Usuario {
 		$this->conection = $dbObj->conection;
 	}
 
-	/* Get all usuario */
-	public function getusuario(){
+	/* Get all */
+	public function getTabla(){
 		$this->getConection();
-		$sql = "SELECT * FROM ".$this->table;
+		$sql = "SELECT * FROM ".$this->tabla;
 		$stmt = $this->conection->prepare($sql);
 		$stmt->execute();
 		$resultado = $stmt->get_result();
@@ -29,76 +48,92 @@ class Usuario {
 		return $resultado->fetch_all(MYSQLI_ASSOC);
 	}
 
-	/* Get usuario by id */
-	public function getusuarioById($id){
+	/* Get by id */
+	public function getTablaById($id){
 		if(is_null($id)) return false;
 		$this->getConection();
-		$sql = "SELECT * FROM ".$this->table. " WHERE id_usuario = ?";
+		$sql = "SELECT * FROM ".$this->tabla. " WHERE id_".$this->tabla." = ?";
 		$stmt = $this->conection->prepare($sql);
-		$stmt->bind_param('i', $id_usuario); // 'i' para entero
+		$stmt->bind_param('i', $id); // 'i' para entero
 		$stmt->execute();
 		$resultado = $stmt->get_result();
 		return $resultado->fetch_assoc();
 	}
 
-	/* Save usuario */
+	/* Save */
 	public function save($param){
 		$this->getConection();
 
-		/* Set default values */
-		$title = $content = "";
-
 		/* Check if exists */
 		$exists = false;
-		if(isset($param["id_usuario"]) and $param["id_usuario"] !=''){
-			$actualusuario = $this->getusuarioById($param["id_usuario"]);
-			if(isset($actualusuario["id_usuario"])){
-				$exists = true;	
+		if(isset($param["id_" . $this->tabla]) and $param["id_" . $this->tabla] !=''){
+			$actual = $this->getTablaById($param["id_" . $this->tabla]);
+			if(isset($actual["id_" . $this->tabla])){
+				$exists = true;
 				/* Actual values */
-				$id_usuario = $param["id_usuario"];
-				$apellido = $actualusuario["apellido"];
-				$nombre = $actualusuario["nombre"];
-				$dni = $actualusuario["dni"];
-				$usuario = $actualusuario["usuario"];
-				$clave = $actualusuario["clave"];
-				$rol = $actualusuario["rol"];
+				foreach ($this->campos as $key => $value) {
+					$$key = $actual[$key];
+				}
 			}
 		}
 
 		/* Received values */
-		if(isset($param["id_usuario"])) $id_usuario = $param["id_usuario"];
-		if(isset($param["apellido"])) $apellido = $param["apellido"];
-		if(isset($param["nombre"])) $nombre = $param["nombre"];
-		if(isset($param["dni"])) $dni = $param["dni"];
-		if(isset($param["usuario"])) $usuario = $param["usuario"];
-		if(isset($param["clave"])) $clave = $param["clave"];
-		if(isset($param["rol"])) $rol = $param["rol"];
+		foreach ($this->campos as $key => $value) {
+			if (isset($param[$key])) $$key = $param[$key];
+		}
 
 		/* Database operations */
 		if($exists){
-			$sql = "UPDATE ".$this->table. " SET id_usuario = ?, apellido = ?, nombre = ?, dni = ?, usuario = ?, clave = ?, rol = ? WHERE id_usuario = ?";
+			$sql  = "UPDATE ".$this->tabla. " SET ";
+			$data=[];
+			$id=0;
+			foreach ($this->campos as $key => $value) {
+				if ($key!=="id_".$this->tabla) {
+					if (count($data) > 0) $sql .= ", ";
+					$sql .= $key . " = ?";
+					$data[] = $$key;
+				}
+				else {
+					$id= $$key;
+				}
+			}
+			$data[] = $id;
+			$sql .= " WHERE id_" . $this->tabla . " = ?";
 			$stmt = $this->conection->prepare($sql);
-			$res = $stmt->execute([$id_usuario, $apellido, $nombre, $dni, $usuario, $clave, $rol]);
+			$res = $stmt->execute($data);
 		}else{
-			$sql = "INSERT INTO ".$this->table. " (id_usuario, apellido, nombre, dni, usuario, clave, rol) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			$sql = "INSERT INTO ".$this->tabla." (";
+			$data = [];
+			foreach ($this->campos as $key => $value) {
+				if (count($data) > 0) $sql .= ", ";
+				$sql .= $key;
+				$data[] = $$key;
+			}
+			$sql .= ") VALUES (";
+			for ($i=0; $i<count($data);$i++){
+				if ($i > 0) $sql .= ", ";
+				$sql .= "?";
+			}
+			$sql .= ")";
 			$stmt = $this->conection->prepare($sql);
-			$stmt->execute([$id_usuario, $apellido, $nombre, $dni, $usuario, $clave, $rol]);
-			$id_usuario = $this->conection->insert_id;
+			$stmt->execute($data);
+			$id = $this->conection->insert_id;
 		}
 
-		return $id_usuario;	
+		return $id;	
 
 	}
 
-	/* Delete usuario by id */
-	public function deleteusuarioByIdusuario($id_usuario){
+	/* Delete by id */
+	public function deleteTablaById($id){
 		$this->getConection();
-		$sql = "DELETE FROM ".$this->table. " WHERE id_usuario = ?";
+		$sql = "DELETE FROM ".$this->tabla. " WHERE id_" . $this->tabla . " = ?";
 		$stmt = $this->conection->prepare($sql);
-		return $stmt->execute([$id_usuario]);
+		return $stmt->execute([$id]);
 	}
 
+	public function getCampos(){
+		return $this->campos;
+	}
 }
 ?>
-
-

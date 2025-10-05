@@ -1,58 +1,61 @@
-<?php 
-
+<?php
+require_once 'model/db.php';
 require_once 'model/usuario.php';
 
 class UsuarioController{
 	public $page_title;
 	public $view;
-	public $usuarioObj;
+	public $tablaObj;
+	private $tabla="usuario";
 
 	public function __construct() {
-		$this->view = 'listar_usuario';
+		$this->view = 'listar_'.$this->tabla;
 		$this->page_title = '';
-		$this->usuarioObj = new Usuario();
+		$this->tablaObj = new Usuario();
 	}
 
-	/* Lista los usuarios */
+	/* Lista */
 	public function list(){
-		$this->page_title = 'Listado de usuarios';
-		return $this->usuarioObj->getusuario();
+		$this->page_title = 'Listado de '. $this->tabla .'s';
+		return $this->tablaObj->getTabla();
 	}
 
-	/* trae los usuarios para editar */
-	public function edit($id_usuario = null){
-		$this->page_title = 'Editar usuario';
-		$this->view = 'edit_usuario';
-		/* Id can from get param or method param */
-		if(isset($_GET["id_usuario"])) $id_usuario = $_GET["id_usuario"];
-		return $this->usuarioObj->getusuarioById($id_usuario);
+	/* trae para editar */
+	public function edit($id=null){
+		$this->page_title = 'Editar '. $this->tabla;
+		$this->view = 'edit_'. $this->tabla;
+		if (isset($_GET["id"])) $id = $_GET["id"];
+		return $this->tablaObj->getTablaById($id);
 	}
 
-	/* Create or update usuario */
+	/* Create or update */
 	public function save(){
-		$this->view = 'edit_usuario';
-		$this->page_title = 'Editar usuario';
-		$id = $this->usuarioObj->save($_POST);
-		$result = $this->usuarioObj->getusuarioById($id);
+		$this->view = 'edit_'. $this->tabla;
+		$this->page_title = 'Editar '. $this->tabla;
+		$id = $this->tablaObj->save($_POST);
+		$result = $this->tablaObj->getTablaById($id);
 		$_GET["response"] = true;
 		return $result;
 	}
 
 	/* Confirm to delete */
 	public function confirmDelete(){
-		$this->page_title = 'Eliminar usuario';
-		$this->view = 'confirm_delete_usuario';
-		return $this->usuarioObj->getusuarioByid($_GET["id"]);
+		$this->page_title = 'Eliminar '. $this->tabla;
+		$this->view = 'confirm_delete_'. $this->tabla;
+		return $this->tablaObj->getTablaById($_GET["id"]);
 	}
 
 	/* Delete */
 	public function delete(){
-		$this->page_title = 'Listado de usuarios';
-		$this->view = 'delete_usuario';
-		return $this->usuarioObj->deleteusuarioByIdusuario($_POST["id_usuario"]);
+		$this->page_title = 'Listado de '. $this->tabla . 's';
+		$this->view = 'delete_'. $this->tabla;
+		return $this->tablaObj->deleteTablaById($_POST["id_". $this->tabla]);
 	}
 
+	/* Campos con su descripción */
+	public function getCampos(){
+		return $this->tablaObj->getCampos();
+	}
 }
 
 ?>
-

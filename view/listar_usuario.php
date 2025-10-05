@@ -1,4 +1,3 @@
-
 <link rel='stylesheet' href='estilos.css'/>
 
 <div class="row">
@@ -14,7 +13,6 @@
 				<th>Nombre</th>
 				<th>DNI</th>
 				<th>Usuario</th>
-				<th>Clave</th>
 				<th>Rol</th>
 				<th colspan="2">Funciones</th>
 			</tr>
@@ -25,7 +23,6 @@
 					<td><?php echo $usuario['nombre']; ?></td>
 					<td><?php echo $usuario['dni']; ?></td>
 					<td><?php echo $usuario['usuario']; ?></td>
-					<td><?php echo $usuario['clave']; ?></td>
 					<td><?php echo $usuario['rol']; ?></td>
 					<td>
 						<a href="index.php?controller=usuario&action=edit&id=<?php echo $usuario['id_usuario']; ?>" class="btn btn-primary">Editar</a>
