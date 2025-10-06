@@ -1,7 +1,4 @@
 <?php
-
-require_once "./config/config.php";
-
 class Usuario {
 
 	private $tabla = 'usuario';
