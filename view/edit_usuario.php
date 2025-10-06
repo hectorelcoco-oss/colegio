@@ -1,18 +1,9 @@
-
-<link rel="stylesheet" href="estilos.css"/>
-
 <?php
-$id_usuario = $apellido = $nombre = $dni = $usuario = $clave = $rol = "";
-
-if(isset($dataToView["data"]["id_usuario"])) $id_usuario = $dataToView["data"]["id_usuario"];
-if (isset($dataToView["data"]["apellido"])) $apellido = $dataToView["data"]["apellido"];
-if (isset($dataToView["data"]["nombre"])) $nombre = $dataToView["data"]["nombre"];
-if (isset($dataToView["data"]["dni"])) $dni = $dataToView["data"]["dni"];
-if (isset($dataToView["data"]["usuario"])) $usuario = $dataToView["data"]["usuario"];
-if (isset($dataToView["data"]["clave"])) $clave = $dataToView["data"]["clave"];
-if (isset($dataToView["data"]["rol"])) $rol = $dataToView["data"]["rol"];
+foreach ($campos as $key => $encabezado) {
+	$$key="";
+	if (isset($dataToView["data"][$key])) $$key = $dataToView["data"][$key];
+}
 ?>
-
 <div class="row">
 	<?php
 	if(isset($_GET["response"]) and $_GET["response"] === true){
