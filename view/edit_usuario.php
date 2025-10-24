@@ -1,18 +1,9 @@
-
-<link rel="stylesheet" href="estilos.css"/>
-
 <?php
-$id_usuario = $apellido = $nombre = $dni = $usuario = $clave = $rol = "";
-
-if(isset($dataToView["data"]["id_usuario"])) $id_usuario = $dataToView["data"]["id_usuario"];
-if (isset($dataToView["data"]["apellido"])) $apellido = $dataToView["data"]["apellido"];
-if (isset($dataToView["data"]["nombre"])) $nombre = $dataToView["data"]["nombre"];
-if (isset($dataToView["data"]["dni"])) $dni = $dataToView["data"]["dni"];
-if (isset($dataToView["data"]["usuario"])) $usuario = $dataToView["data"]["usuario"];
-if (isset($dataToView["data"]["clave"])) $clave = $dataToView["data"]["clave"];
-if (isset($dataToView["data"]["rol"])) $rol = $dataToView["data"]["rol"];
+foreach ($campos as $key => $encabezado) {
+	$$key="";
+	if (isset($dataToView["data"][$key])) $$key = $dataToView["data"][$key];
+}
 ?>
-
 <div class="row">
 	<?php
 	if(isset($_GET["response"]) and $_GET["response"] === true){
@@ -25,7 +16,7 @@ if (isset($dataToView["data"]["rol"])) $rol = $dataToView["data"]["rol"];
 	?>
 	
 	<form class="form" action="index.php?controller=usuario&action=save" method="POST">
-		<input type="hidden" name="id_usuario" value="<?php echo $id ?? ''; ?>" />
+		<input type="hidden" name="id_usuario" value="<?php echo $id_usuario ?? ''; ?>" />
 	<div class="form-container">
   
 		<div class="form-group">
@@ -40,7 +31,7 @@ if (isset($dataToView["data"]["rol"])) $rol = $dataToView["data"]["rol"];
 
 		<div class="form-group">
 			<label>DNI</label>
-			<input class="form-control" type="text" name="dni" value="<?php echo $dni; ?>" />
+			<input class="form-control" type="number" name="dni" value="<?php echo $dni; ?>" />
 		</div>
 
 		<div class="form-group">
@@ -50,12 +41,33 @@ if (isset($dataToView["data"]["rol"])) $rol = $dataToView["data"]["rol"];
 
 		<div class="form-group">
 			<label>Clave</label>
-			<input class="form-control" type="text" name="clave" value="<?php echo $clave; ?>" />
+			<input class="form-control" type="password" name="clave" value="<?php echo $clave; ?>" />
 		</div>
 
 		<div class="form-group">
 			<label>Rol</label>
-			<input class="form-control" type="text" name="rol" value="<?php echo $rol; ?>" />
+					<select name="id_rol" id="id_rol" class="form-control">
+						<?php foreach ($dataToView["dataRel1"] as $rel1) { ?>
+							<option value="<?= $rel1["id_rol"] ?>" <?= $rel1["id_rol"]==$$key?"selected":"" ?>>
+								<?= $rel1["nombre"] ?>
+							</option>
+						<?php } ?>
+					</select>
+		</div>
+
+		<div class="form-group">
+			<label>Fecha Nacimiento</label>
+			<input class="form-control" type="date" name="fecha_nac" value="<?php echo $fecha_nac; ?>" />
+		</div>
+		
+		<div class="form-group">
+			<label>Sexo</label>
+			<input class="form-control" type="text" name="sexo" value="<?php echo $sexo; ?>" />
+		</div>
+
+		<div class="form-group">
+			<label>Email</label>
+			<input class="form-control" type="email" name="email" value="<?php echo $email; ?>" />
 		</div>
 
 		<input type="submit" value="Guardar" class="btn btn-primary"/>

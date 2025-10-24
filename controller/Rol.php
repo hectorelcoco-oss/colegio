@@ -1,28 +1,28 @@
 <?php 
-require_once 'model/Db.php';
-require_once 'model/Usuario.php';
-require_once 'model/Rol.php';
-class UsuarioController{
+require_once 'model/db.php';
+require_once 'model/rol.php';
+
+class RolController{
 	public $page_title;
 	public $view;
 	public $tablaObj;
-	private $tabla="usuario";
-	public $tablaObj1;
-
+	private $tabla="rol";
+	
+	
 	public function __construct() {
 		$this->view = 'listar_'.$this->tabla;
 		$this->page_title = '';
-		$this->tablaObj = new Usuario();
-		$this->tablaObj1 = new Rol();
+		$this->tablaObj = new Rol();
+				
 	}
 
-	/* Lista los usuarios */
+	/* Lista los roles */
 	public function list(){
-		$this->page_title = 'Listado de '. $this->tabla .'s';
+		$this->page_title = 'Listado de '. $this->tabla .'es';
 		return $this->tablaObj->getTabla(); 
 	}
 
-	/* trae los usuarios para editar */
+	/* trae los roles para editar */
 	public function edit($id = null){
 		$this->page_title = 'Editar '. $this->tabla;
 		$this->view = 'edit_'. $this->tabla;
@@ -48,7 +48,7 @@ class UsuarioController{
 
 	/* Delete */
 	public function delete(){
-		$this->page_title = 'Listado de '. $this->tabla . 's';
+		$this->page_title = 'Listado de '. $this->tabla . 'es';
 		$this->view = 'delete_'. $this->tabla;
 		return $this->tablaObj->deleteTablaById($_POST["id_". $this->tabla]);
 	}
@@ -57,11 +57,6 @@ class UsuarioController{
 		return $this->tablaObj->getCampos();
 	}
 	
-	/* Listado de la tabla relacionada */
-	public function getTablaRel1()
-	{
-		return $this->tablaObj1->getTabla();
-	}
 
 }
 

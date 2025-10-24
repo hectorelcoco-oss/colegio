@@ -1,8 +1,8 @@
 <!--<link rel='stylesheet' href='estilos.css'/>-->
 
 <div class="row">
-	
-<?php if (count($dataToView["data"]) > 0): ?>
+
+	<?php if (count($dataToView["data"]) > 0): ?>
 		<table class="tabl">
 			<tr class="fila_tabla2">
 				<?php
@@ -36,10 +36,10 @@
 					?>
 
 					<td>
-						<a href="index.php?controller=usuario&action=edit&id=<?php echo $id; ?>" class="btn btn-primary">✏️</a>
+						<a href="index.php?controller=rol&action=edit&id=<?php echo $id; ?>" class="btn btn-primary">✏️</a>
 					</td>
 					<td>
-						<a href="index.php?controller=usuario&action=confirmDelete&id=<?php echo $id; ?>" class="btn btn-danger">🗑️</a>
+						<a href="index.php?controller=rol&action=confirmDelete&id=<?php echo $id; ?>" class="btn btn-danger">🗑️</a>
 					</td>
 				</tr>
 			<?php endforeach; ?>

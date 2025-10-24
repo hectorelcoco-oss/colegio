@@ -1,8 +1,5 @@
-<link rel="stylesheet" href="/colegio/view/estilos.css"/>;
-
 <?php
 require_once 'config/config.php';
-require_once 'model/db.php';
 
 
 if(!isset($_GET["controller"])) $_GET["controller"] = constant("DEFAULT_CONTROLLER");
@@ -21,8 +18,16 @@ $controller = new $controllerName();
 /* Check if method is defined */
 
 $dataToView["data"] = array();
-if(method_exists($controller,$_GET["action"])) $dataToView["data"] = $controller->{$_GET["action"]}();
-
+$dataToView["dataRel1"] = array();
+if(method_exists($controller,$_GET["action"])) {
+    $dataToView["data"] = $controller->{$_GET["action"]}();
+    $campos= $controller->getCampos();
+    if($_GET["controller"] == "usuario")
+    {
+        $dataToView["dataRel1"] = $controller->getTablaRel1();
+    }
+    
+}
 
 /* Load views */
 require_once 'view/template/header.php';

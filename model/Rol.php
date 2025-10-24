@@ -1,24 +1,16 @@
 <?php
-class Usuario
+class Rol
 {
 
-	private $tabla = 'usuario';
+	private $tabla = 'rol';
 	private $conection;
 	private $campos;
 
 	public function __construct()
 	{
 		$this->campos = [
-			"id_usuario" => "ID",
-			"apellido" => "Apellido",
-			"nombre" => "Nombre",
-			"dni" => "DNI",
-			"usuario" => "Usuario",
-			"clave" => "",
-			"fecha_nac" => "Fecha Nac",
-			"sexo" => "Sexo",
-			"email" => "Email",
-			"id_rol" => "Rol"
+			"id_rol" => "ID",
+			"nombre" => "Nombre"
 		];
 	}
 
@@ -33,8 +25,7 @@ class Usuario
 	public function getTabla()
 	{
 		$this->getConection();
-		$sql = "SELECT u.*, r.nombre rol FROM " . $this->tabla .
-		" u INNER JOIN rol r ON u.id_rol=r.id_rol";
+		$sql = "SELECT * FROM " . $this->tabla;
 		$stmt = $this->conection->prepare($sql);
 		$stmt->execute();
 		$resultado = $stmt->get_result();
@@ -47,7 +38,12 @@ class Usuario
 	{
 		if (is_null($id)) return false;
 		$this->getConection();
-		$sql = "SELECT * FROM " . $this->tabla . " WHERE id_" . $this->tabla . " = ?";
+		$sql = "SELECT a.*, b.id_rol rol_usuario, count(*) cant_usuarios FROM rol a 
+			left join usuario b 
+			on a.id_rol=b.id_rol
+			where a.id_rol= ?
+			group by 1,2,3";
+
 		$stmt = $this->conection->prepare($sql);
 		$stmt->bind_param('i', $id); // 'i' para entero
 		$stmt->execute();
