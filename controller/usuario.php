@@ -63,6 +63,14 @@ class UsuarioController{
 		return $this->tablaObj1->getTabla();
 	}
 
+	public function login(){
+		$this->view = 'login_'. $this->tabla;
+		$this->page_title = 'Ingreso de '. $this->tabla;
+		$result =  $this->tablaObj->login($_POST);
+		$_GET["response"] = true;
+		return $result;
+	}
+
 }
 
 ?>

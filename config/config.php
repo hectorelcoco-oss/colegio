@@ -8,7 +8,7 @@ define("DB_PASS", "");
 
 /* Default options */
 define("DEFAULT_CONTROLLER", "usuario");
-define("DEFAULT_ACTION", "list");
+define("DEFAULT_ACTION", "login");
 $controllers=["usuario", "rol"];
 
 

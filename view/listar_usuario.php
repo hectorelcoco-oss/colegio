@@ -1,7 +1,4 @@
-<!--<link rel='stylesheet' href='estilos.css'/>-->
-
 <div class="row">
-	
 <?php if (count($dataToView["data"]) > 0): ?>
 		<table class="tabl">
 			<tr class="fila_tabla2">

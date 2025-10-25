@@ -24,23 +24,28 @@
                                 <?php
                             }
                             foreach ($controllers as $txtBoton) {
-                                if ($_GET["controller"] != $txtBoton) {
+                               // if ($_GET["controller"] != $txtBoton) {
                                 ?>
-                        </li>
-                        <li class="nav-item mx-3">
-                            <a href="index.php?controller=<?= $txtBoton ?>&action=list"
-                                class="btn btn-outline-primary"><?= $txtBoton ?><?= $txtBoton =="rol" ? "e":"" ?>s</a>
-                        <?php
-                                } else {
-                        ?>
-                        </li>
-                        <li class="nav-item mx-3">
-                            <a class="btn btn-outline-primary"><?= $txtBoton ?><?= $txtBoton =="rol" ? "e":"" ?>s</a>
-                    <?php
+                            </li>
+                            <li class="nav-item mx-3">
+                                <a href="index.php?controller=<?= $txtBoton ?>&action=list"
+                                    class="btn btn-outline-primary"><?= $txtBoton ?><?= $txtBoton =="rol" ? "e":"" ?>s</a>
+                            <?php
+                                    
                                 }
-                            }
-                    ?>
-                        </li>
+                            ?>
+                            </li>
+                            <?php if (!isset($_SESSION["usuario"])) {?>
+                            <li class="nav-item mx-3">
+                            <a href="index.php?controller=usuario&action=login"
+                                class="btn btn-outline-primary">ingresar</a>
+                            </li>
+                            <?php } else { ?>
+                            <li class="nav-item mx-3">
+                           <a href="index.php?controller=usuario&action=logout"
+                                class="btn btn-outline-primary">cerrar sesión (<?php echo $_SESSION["usuario"]; ?>)</a>
+                            </li>
+                            <?php } ?>  
                     </ul>
                 </div>
             </div>

@@ -85,6 +85,9 @@ class Usuario
 			$id = 0;
 			foreach ($this->campos as $key => $value) {
 				if ($key !== "id_" . $this->tabla) {
+					if ($key == "clave"){
+						$$key = password_hash($$key, PASSWORD_BCRYPT);
+					}
 					if (count($data) > 0) $sql .= ", ";
 					$sql .= $key . " = ?";
 					$data[] = $$key;
@@ -100,6 +103,9 @@ class Usuario
 			$sql = "INSERT INTO " . $this->tabla . " (";
 			$data = [];
 			foreach ($this->campos as $key => $value) {
+				if ($key == "clave"){
+						$$key = password_hash($$key, PASSWORD_BCRYPT);
+					}
 				if (count($data) > 0) $sql .= ", ";
 				$sql .= $key;
 				$data[] = $$key;
@@ -130,5 +136,16 @@ class Usuario
 	public function getCampos()
 	{
 		return $this->campos;
+	}
+
+		public function login($param)
+	{
+		$this->getConection();
+		$sql = "SELECT * FROM " . $this->tabla . " WHERE usuario =? ";
+		$stmt = $this->conection->prepare($sql);
+		$stmt->bind_param("s", $param ["usuario"]);
+		$stmt->execute();
+		$resultado = $stmt->get_result();
+		return $resultado->fetch_assoc();
 	}
 }
