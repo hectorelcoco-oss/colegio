@@ -1,4 +1,10 @@
 <?php
+	if(isset($_GET["logout"]) && $_GET["logout"]==true){
+		session_unset();
+		session_destroy();
+		header("Location: index.php?controller=usuario&action=login");
+		exit;
+	}
 foreach ($campos as $key => $encabezado) {
 	$$key="";
 	if (isset($dataToView["data"][$key])) $$key = $dataToView["data"][$key];
@@ -17,8 +23,9 @@ foreach ($campos as $key => $encabezado) {
 		else 
 			if ($usuario !== ""){
 			$_SESSION["usuario"]=$usuario;
-			$_SESSION["rol"]=$rol;		
-				header("Location: index.php?controller=usuario&action=list");
+			$_SESSION["rol"]=$id_rol;
+			header("Location: index.php?controller=usuario&action=list");
+			exit;
 		}
 	
 		?>

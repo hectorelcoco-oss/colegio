@@ -18,11 +18,14 @@
                             <?php if ($_GET["action"] == "list") { ?>
                                 <a href="index.php?controller=<?= $_GET["controller"] ?>&action=edit"
                                     class="btn btn-outline-primary">➕Crear <?= $_GET["controller"] ?></a>
-                            <?php } else {
+                            <?php } elseif (isset ($_SESSION ["usuario"]) && $_GET["action"] != "login") 
+                            {
+                                
                             ?> <a href="index.php?controller=<?= $_GET["controller"] ?>&action=list"
                                     class="btn btn-outline-primary">volver</a>                                   
                                 <?php
                             }
+                                
                             foreach ($controllers as $txtBoton) {
                                // if ($_GET["controller"] != $txtBoton) {
                                 ?>
@@ -42,7 +45,7 @@
                             </li>
                             <?php } else { ?>
                             <li class="nav-item mx-3">
-                           <a href="index.php?controller=usuario&action=logout"
+                           <a href="index.php?controller=usuario&action=login&logout=true"
                                 class="btn btn-outline-primary">cerrar sesión (<?php echo $_SESSION["usuario"]; ?>)</a>
                             </li>
                             <?php } ?>  

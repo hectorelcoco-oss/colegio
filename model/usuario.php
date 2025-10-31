@@ -130,7 +130,13 @@ class Usuario
 		$this->getConection();
 		$sql = "DELETE FROM " . $this->tabla . " WHERE id_" . $this->tabla . " = ?";
 		$stmt = $this->conection->prepare($sql);
-		return $stmt->execute([$id]);
+		try{
+			return $stmt->execute([$id]);
+		}
+		catch(Exception $e){
+			return "Error al eliminar: el usuario debe tener algun rol asociado" . $e->getMessage();
+		}
+		
 	}
 
 	public function getCampos()
@@ -148,4 +154,5 @@ class Usuario
 		$resultado = $stmt->get_result();
 		return $resultado->fetch_assoc();
 	}
+
 }

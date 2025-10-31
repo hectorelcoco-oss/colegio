@@ -56,6 +56,18 @@ class RolController{
 	public function getCampos(){
 		return $this->tablaObj->getCampos();
 	}
+		// Todos los roles pueden leer usuarios
+	public function puedeLeer($rol_id){
+		return in_array($rol_id, [1, 2, 3]); 
+	}
+	 	// Solo Admin y Editor pueden escribir usuarios
+	public function puedeEditar($rol_id){
+		return in_array($rol_id, [1, 2]); 
+	}
+		// Solo Admin puede borrar usuarios
+	public function puedeEliminar($rol_id){
+		return $rol_id === 1; 
+	}
 	
 
 }
