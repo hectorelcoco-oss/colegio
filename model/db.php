@@ -17,9 +17,17 @@ class Db {
 		$this->user = constant('DB_USER');
 		$this->pass = constant('DB_PASS');
 
-        $this->conection = new mysqli($this->host, $this->user, $this->pass, $this->db);
+        
+		try{
+		
+			$this->conection = new mysqli($this->host, $this->user, $this->pass, $this->db);
+		}
+		catch(Exception $e){
+			die('Error de conexión: ' . $e->getMessage());
+		}
         if ($this->conection->connect_error) {
 			die('Falló la conexión: ' . $this->conection->connect_error);
+			
 		}
 
 	}

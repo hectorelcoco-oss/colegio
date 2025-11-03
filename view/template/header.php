@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>colegio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-   <link rel='stylesheet' href='view/estilos.css'/>
+   <link rel='stylesheet' href='view/template/estilos.css'/>
 </head>
 <body>
         <div class="container">

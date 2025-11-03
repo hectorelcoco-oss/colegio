@@ -29,7 +29,7 @@ class UsuarioController{
 		if(isset($_GET["id"])) $id = $_GET["id"];
 		return $this->tablaObj->getTablaById($id);
 	}
-	/* Create or update */
+	/* guarda los cambios de usuarios */
 	public function save(){
 		$this->view = 'edit_'. $this->tabla;
 		$this->page_title = 'Editar '. $this->tabla;
@@ -39,7 +39,7 @@ class UsuarioController{
 		return $result;
 	}
 
-	/* Confirm to delete */
+	/* Elimina el usuario por */
 	public function confirmDelete(){
 		$this->page_title = 'Eliminar '. $this->tabla;
 		$this->view = 'confirm_delete_'. $this->tabla;
@@ -62,7 +62,7 @@ class UsuarioController{
 	{
 		return $this->tablaObj1->getTabla();
 	}
-
+	/** login */
 	public function login(){
 		$this->view = 'login_'. $this->tabla;
 		$this->page_title = 'Ingreso de '. $this->tabla;

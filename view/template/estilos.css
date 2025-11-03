@@ -107,3 +107,11 @@ nav ul {
   width: 100%; /* Ocupa todo el ancho disponible */
   box-sizing: border-box; /* Evita que el padding rompa el ancho */
 }
+.footer{
+    margin-top: 40px;
+    padding: 20px 0;
+    background-color: #007BFF; /* Azul institucional */
+    color: white;
+    text-align: center;
+    position: relative;
+    bottom: 0;}

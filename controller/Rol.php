@@ -29,7 +29,7 @@ class RolController{
 		if(isset($_GET["id"])) $id = $_GET["id"];
 		return $this->tablaObj->getTablaById($id);
 	}
-	/* Create or update */
+	/* Guarda los cambios del rol */
 	public function save(){
 		$this->view = 'edit_'. $this->tabla;
 		$this->page_title = 'Editar '. $this->tabla;
@@ -39,7 +39,7 @@ class RolController{
 		return $result;
 	}
 
-	/* Confirm to delete */
+	/* elimina el rol por id */
 	public function confirmDelete(){
 		$this->page_title = 'Eliminar '. $this->tabla;
 		$this->view = 'confirm_delete_'. $this->tabla;
@@ -56,20 +56,7 @@ class RolController{
 	public function getCampos(){
 		return $this->tablaObj->getCampos();
 	}
-		// Todos los roles pueden leer usuarios
-	public function puedeLeer($rol_id){
-		return in_array($rol_id, [1, 2, 3]); 
-	}
-	 	// Solo Admin y Editor pueden escribir usuarios
-	public function puedeEditar($rol_id){
-		return in_array($rol_id, [1, 2]); 
-	}
-		// Solo Admin puede borrar usuarios
-	public function puedeEliminar($rol_id){
-		return $rol_id === 1; 
-	}
 	
-
 }
 
 ?>

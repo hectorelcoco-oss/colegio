@@ -9,7 +9,10 @@
 					}
 				}
 				?>
-				<th colspan="2">Funciones</th>
+				<!-- quitra el campo funciones si el rol no es 1 ó 2-->
+				<?php if (isset($_SESSION["rol"]) && ($_SESSION["rol"] == 2 || $_SESSION["rol"] == 1)) : ?>
+					<th colspan="2">Funciones</th>
+				<?php endif; ?>
 			</tr>
 
 			<?php foreach ($dataToView["data"] as $tabla): ?>
@@ -29,6 +32,7 @@
 							$id = $tabla[$key];
 						}
 					}
+					// muestra los botones editar y eliminar según el rol del usuario
 					if (isset($_SESSION["rol"]) && ($_SESSION["rol"] == 2 || $_SESSION["rol"] == 1)) {
 					?>
 						<td>
@@ -37,9 +41,9 @@
 						<?php
 						if ($_SESSION["rol"] == 1) {
 						?>
-						<td>
-							<a href="index.php?controller=usuario&action=confirmDelete&id=<?php echo $id; ?>" class="btn btn-danger">🗑️</a>
-						</td>
+							<td>
+								<a href="index.php?controller=usuario&action=confirmDelete&id=<?php echo $id; ?>" class="btn btn-danger">🗑️</a>
+							</td>
 					<?php
 						}
 					} ?>
